@@ -17,8 +17,7 @@
   },
   "settings": {
     "react": {
-      "pragma": "React",
-      "version": "16.0"
+      "version": "19.0"
     }
   },
   "rules": {
@@ -178,7 +177,7 @@
     "react/no-find-dom-node": 2,
     "react/no-multi-comp": 0,
     "react/no-set-state": 0,
-    "react/react-in-jsx-scope": 2,
+    "react/react-in-jsx-scope": 0,
     "react/require-optimization": 0,
     "react/self-closing-comp": 2,
     "react/style-prop-object": 2,

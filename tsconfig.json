@@ -2,7 +2,7 @@
   "compilerOptions": {
     /* Basic Options */
     "declaration": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": ["es6", "dom"],
     "module": "esnext",
     "moduleResolution": "node",
