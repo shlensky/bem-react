@@ -1,5 +1,5 @@
 /**
- * Eenvironment flag for development.
+ * Environment flag for development.
  * @internal
  */
 declare const __DEV__: boolean

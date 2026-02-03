@@ -1,4 +1,5 @@
-import { ComponentType, FC, createElement, forwardRef } from 'react'
+import { ComponentType, FC, JSX } from 'react'
+import { jsx } from 'react/jsx-runtime'
 import { cn, NoStrictEntityMods, ClassNameFormatter } from '@bem-react/classname'
 import { classnames } from '@bem-react/classnames'
 
@@ -71,7 +72,7 @@ export function withBemMod<T, U extends IClassNameProps = {}>(
     entity = entity || cn(blockName)
     entityClassName = entityClassName || entity()
 
-    const BemMod = forwardRef((props: T & K, ref) => {
+    const BemMod: FC<T & K> = (props) => {
       modNames = modNames || Object.keys(mod)
 
       // TODO: For performance can rewrite `every` to `for (;;)`.
@@ -82,8 +83,6 @@ export function withBemMod<T, U extends IClassNameProps = {}>(
         return modValue === propValue || (modValue === '*' && Boolean(propValue))
       })
 
-      const nextProps = Object.assign({}, props, { ref })
-
       if (isModifierMatched) {
         const modifiers = modNames.reduce((acc: Dictionary, key: string) => {
           if (mod[key] !== '*') acc[key] = mod[key]
@@ -92,8 +91,8 @@ export function withBemMod<T, U extends IClassNameProps = {}>(
         }, {})
         modifierClassName = modifierClassName || entity(modifiers)
 
-        nextProps.className = classnames(modifierClassName, props.className)
-          // Replace first entityClassName for remove duplcates from className.
+        const className = classnames(modifierClassName, props.className)
+          // Replace first entityClassName for remove duplicates from className.
           .replace(`${entityClassName} `, '')
 
         if (typeof enhance === 'function') {
@@ -111,13 +110,11 @@ export function withBemMod<T, U extends IClassNameProps = {}>(
           ModifiedComponent = WrappedComponent as any
         }
 
-        // Use createElement instead of jsx to avoid __assign from tslib.
-        return createElement(ModifiedComponent, nextProps)
+        return jsx(ModifiedComponent, Object.assign({}, props, { className }))
       }
 
-      // Use createElement instead of jsx to avoid __assign from tslib.
-      return createElement(WrappedComponent, nextProps)
-    })
+      return jsx(WrappedComponent, props)
+    }
 
     if (__DEV__) {
       setDisplayName(BemMod, {
@@ -130,11 +127,8 @@ export function withBemMod<T, U extends IClassNameProps = {}>(
     return BemMod
   }
 
-  // Ignore `forwardRef` typings to keep compatibility with `HOC<T>`
-  const withMod = (WithBemMod as any) as {
-    <K extends IClassNameProps = {}>(WrappedComponent: ComponentType<T & K>): (
-      props: T & K,
-    ) => React.ReactElement
+  const withMod = WithBemMod as any as {
+    <K extends IClassNameProps = {}>(WrappedComponent: ComponentType<T & K>): FC<T & K>
 
     __isSimple: boolean
     __blockName: string
@@ -194,7 +188,7 @@ function composeSimple(mods: any[]) {
   return (Base: ComponentType<any>) => {
     function SimpleComposeWrapper(props: Record<string, any>) {
       const modifiers: NoStrictEntityMods = {}
-      const newProps: any = { ...props }
+      const newProps: any = Object.assign({}, props)
 
       for (let key of modNames) {
         const modValues = allMods[key]
@@ -221,7 +215,7 @@ function composeSimple(mods: any[]) {
 
       newProps.className = entity(modifiers, [props.className])
 
-      return createElement(Base, newProps)
+      return jsx(Base, newProps)
     }
     if (__DEV__) {
       const allModsFormatted = Object.keys(allMods)
@@ -320,9 +314,9 @@ export function compose() {
     f.__isSimple ? simple.push(f) : enhanced.push(f)
   }
 
-  const oprimizedFns = simple.length ? [composeSimple(simple), ...enhanced] : enhanced
+  const optimizedFns = simple.length ? [composeSimple(simple), ...enhanced] : enhanced
 
-  return oprimizedFns.reduce(
+  return optimizedFns.reduce(
     (a, b) => {
       return function() {
         return a(b.apply(0, arguments))

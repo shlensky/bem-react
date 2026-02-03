@@ -1,12 +1,5 @@
-import React, {
-  ReactNode,
-  FC,
-  ComponentType,
-  createContext,
-  useContext,
-  useRef,
-  createElement,
-} from 'react'
+import { ReactNode, FC, ComponentType, createContext, useContext, useRef } from 'react'
+import { jsx } from 'react/jsx-runtime'
 
 export type RegistryContext = Record<string, Registry>
 
@@ -49,8 +42,7 @@ export function withRegistry() {
 
             return (
               <RegistryProvider value={providedRegistriesRef.current}>
-                {/* Use createElement instead of jsx to avoid __assign from tslib. */}
-                {createElement(Component, props)}
+                {jsx(Component, props)}
               </RegistryProvider>
             )
           }}

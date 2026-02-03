@@ -33,7 +33,11 @@ function getExternalDependencies(packagePath) {
   const content = readFileSync(packageJsonPath, 'utf-8')
   const { dependencies, peerDependencies } = JSON.parse(content)
 
-  return [...Object.keys(Object(dependencies)), ...Object.keys(Object(peerDependencies))]
+  return [
+    ...Object.keys(Object(dependencies)),
+    ...Object.keys(Object(peerDependencies)),
+    'react/jsx-runtime',
+  ]
 }
 
 function getTypescriptConfig(packagePath) {

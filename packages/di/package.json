@@ -15,7 +15,7 @@
     "unit": "../../node_modules/.bin/jest --config ../../.config/jest/jest.config.js"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    "react": "^19.0.0"
   },
   "files": ["build", "di.d.ts"],
   "main": "./build/di.cjs",
