@@ -3,16 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.1.0](https://github.com/bem/bem-react/compare/@bem-react/pack@3.0.0...@bem-react/pack@3.1.0) (2023-06-01)
+## [3.1.1](https://github.com/bem/bem-react/compare/@bem-react/pack@3.1.0...@bem-react/pack@3.1.1) (2026-02-06)
 
+### Bug Fixes
+
+- **pack:** add skipLibCheck to fix @types/node compatibility ([c2d5bb7](https://github.com/bem/bem-react/commit/c2d5bb7316d9b679b59dea73515a24ca6b796270))
+
+# [3.1.0](https://github.com/bem/bem-react/compare/@bem-react/pack@3.0.0...@bem-react/pack@3.1.0) (2023-06-01)
 
 ### Features
 
-* impl ts resolve alias plugin ([2fc5c2f](https://github.com/bem/bem-react/commit/2fc5c2f64108cbc558d713a615f4425af660d4fd))
-
-
-
-
+- impl ts resolve alias plugin ([2fc5c2f](https://github.com/bem/bem-react/commit/2fc5c2f64108cbc558d713a615f4425af660d4fd))
 
 # [3.0.0](https://github.com/bem/bem-react/compare/@bem-react/pack@1.6.0...@bem-react/pack@3.0.0) (2022-12-15)
 

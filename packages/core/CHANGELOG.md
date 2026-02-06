@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/bem/bem-react/compare/@bem-react/core@5.2.0...@bem-react/core@6.0.0) (2026-02-06)
+
+### Features
+
+- upgrade to React 19 with new JSX runtime ([0aefc4c](https://github.com/bem/bem-react/commit/0aefc4c7d19a5c756f5cfdf5a0cae2703104101b))
+
+### BREAKING CHANGES
+
+- drop support for React 16, 17, and 18
+
 # [5.2.0](https://github.com/bem/bem-react/compare/@bem-react/core@5.1.0...@bem-react/core@5.2.0) (2025-06-15)
 
 ### Features
