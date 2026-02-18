@@ -169,6 +169,19 @@ export type Composition<T> = <U extends ComponentType<any>>(
 
 function composeSimple(mods: any[]) {
   const { __blockName } = mods[0]
+
+  for (const mod of mods) {
+    if (mod.__blockName !== __blockName) {
+      console.error(
+        new Error(
+          '[bem-react] composeSimple: all modifiers must belong to the same block. '
+            + `Expected "${__blockName}", got "${mod.__blockName}" for modifier "${mod.__mod}". `
+            + 'The modifier will be applied incorrectly.',
+        ),
+      )
+    }
+  }
+
   const allMods: Record<string, (string | boolean)[]> = {}
   const allModsPassProps: Record<string, boolean[]> = {}
 
