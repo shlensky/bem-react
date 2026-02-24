@@ -17,15 +17,23 @@
   "peerDependencies": {
     "react": "^19.0.0"
   },
-  "files": ["build", "di.d.ts"],
-  "main": "./build/di.cjs",
-  "module": "./build/di.mjs",
+  "files": ["build", "index.cjs", "di.d.ts"],
+  "main": "./index.cjs",
+  "module": "./build/di.production.min.mjs",
   "types": "./di.d.ts",
   "exports": {
     ".": {
       "types": "./di.d.ts",
-      "import": "./build/di.mjs",
-      "require": "./build/di.cjs"
+      "development": {
+        "import": "./build/di.development.mjs",
+        "require": "./build/di.development.cjs"
+      },
+      "production": {
+        "import": "./build/di.production.min.mjs",
+        "require": "./build/di.production.min.cjs"
+      },
+      "import": "./build/di.production.min.mjs",
+      "require": "./index.cjs"
     }
   }
 }
