@@ -14,15 +14,23 @@
     "build": "node ../../scripts/rollup/build.js",
     "unit": "../../node_modules/.bin/jest --config ../../.config/jest/jest.config.js"
   },
-  "files": ["build", "classname.d.ts"],
-  "main": "./build/classname.cjs",
-  "module": "./build/classname.mjs",
+  "files": ["build", "index.cjs", "classname.d.ts"],
+  "main": "./index.cjs",
+  "module": "./build/classname.production.min.mjs",
   "types": "./classname.d.ts",
   "exports": {
     ".": {
       "types": "./classname.d.ts",
-      "import": "./build/classname.mjs",
-      "require": "./build/classname.cjs"
+      "development": {
+        "import": "./build/classname.development.mjs",
+        "require": "./build/classname.development.cjs"
+      },
+      "production": {
+        "import": "./build/classname.production.min.mjs",
+        "require": "./build/classname.production.min.cjs"
+      },
+      "import": "./build/classname.production.min.mjs",
+      "require": "./index.cjs"
     }
   }
 }

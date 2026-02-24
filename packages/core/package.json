@@ -21,15 +21,23 @@
   "peerDependencies": {
     "react": "^19.0.0"
   },
-  "files": ["build", "core.d.ts"],
-  "main": "./build/core.cjs",
-  "module": "./build/core.mjs",
+  "files": ["build", "index.cjs", "core.d.ts"],
+  "main": "./index.cjs",
+  "module": "./build/core.production.min.mjs",
   "types": "./core.d.ts",
   "exports": {
     ".": {
       "types": "./core.d.ts",
-      "import": "./build/core.mjs",
-      "require": "./build/core.cjs"
+      "development": {
+        "import": "./build/core.development.mjs",
+        "require": "./build/core.development.cjs"
+      },
+      "production": {
+        "import": "./build/core.production.min.mjs",
+        "require": "./build/core.production.min.cjs"
+      },
+      "import": "./build/core.production.min.mjs",
+      "require": "./index.cjs"
     }
   }
 }

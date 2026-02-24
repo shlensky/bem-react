@@ -7,10 +7,13 @@ const rimraf = require('rimraf')
 const gzipSize = require('gzip-size')
 const prettyBytes = require('pretty-bytes')
 const { rollup } = require('rollup')
+const { terser } = require('rollup-plugin-terser')
 const typescript2 = require('rollup-plugin-typescript2')
 const replace = require('rollup-plugin-replace')
 const nodeResolve = require('rollup-plugin-node-resolve')
 const stripBanner = require('rollup-plugin-strip-banner')
+
+const { getTerserConfig } = require('./terser.config')
 
 const { log } = console
 const packagePath = process.cwd()
@@ -25,7 +28,8 @@ function getPlugins({ isProduction, tsConfigPath }) {
       tsconfig: tsConfigPath,
       useTsconfigDeclarationDir: true,
     }),
-  ]
+    isProduction && terser(getTerserConfig()),
+  ].filter(Boolean)
 }
 
 function getExternalDependencies(packagePath) {
@@ -78,13 +82,23 @@ function getPackageData(packagePath) {
     inputFile,
     outputs: [
       {
-        outputFile: resolve(buildPath, `${packageName}.cjs`),
+        outputFile: resolve(buildPath, `${packageName}.production.min.cjs`),
         isProduction: true,
         isESM: false,
       },
       {
-        outputFile: resolve(buildPath, `${packageName}.mjs`),
+        outputFile: resolve(buildPath, `${packageName}.production.min.mjs`),
         isProduction: true,
+        isESM: true,
+      },
+      {
+        outputFile: resolve(buildPath, `${packageName}.development.cjs`),
+        isProduction: false,
+        isESM: false,
+      },
+      {
+        outputFile: resolve(buildPath, `${packageName}.development.mjs`),
+        isProduction: false,
         isESM: true,
       },
     ],
